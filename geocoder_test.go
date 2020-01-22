@@ -102,7 +102,7 @@ func Test_getNearbyRectangles(t *testing.T) {
 	}
 }
 
-func Test_distance(t *testing.T) {
+func Test_getDistance(t *testing.T) {
 	type args struct {
 		lat0 float64
 		lng0 float64
@@ -125,9 +125,34 @@ func Test_distance(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := math.Round(distance(tt.args.lat0, tt.args.lng0, tt.args.lat1, tt.args.lng1)/100) * 100; got != tt.want {
-				t.Errorf("distance() = %v, want %v", got, tt.want)
+			if got := math.Round(getDistance(tt.args.lat0, tt.args.lng0, tt.args.lat1, tt.args.lng1)/100) * 100; got != tt.want {
+				t.Errorf("getDistance() = %v, want %v", got, tt.want)
 			}
+		})
+	}
+}
+
+func TestReverseGeocode(t *testing.T) {
+	type args struct {
+		lat            float64
+		lng            float64
+		accuracyMeters float64
+		limit          int
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{
+			"Converts coordinates to addresses",
+			args{
+				49.977094, 36.219115, 100, 4, //Моечная 11/5
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			ReverseGeocode(tt.args.lat, tt.args.lng, tt.args.accuracyMeters, tt.args.limit)
 		})
 	}
 }

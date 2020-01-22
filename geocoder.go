@@ -1,7 +1,10 @@
 package my1562geocoder
 
 import (
+	"fmt"
 	"math"
+	"sort"
+	"strconv"
 )
 
 func GetAddressByID(id uint32) *Address {
@@ -24,7 +27,7 @@ func transpose(lat float64, lng float64, dLatMeters float64, dLngMeters float64)
 	return lat + dLatDegrees, lng + dLngDegrees
 }
 
-func distance(lat0, lng0, lat1, lng1 float64) float64 {
+func getDistance(lat0, lng0, lat1, lng1 float64) float64 {
 	dLatMeters := (lat0 - lat1) * meridianDegreeLength
 	dLngMeters := (lng0 - lng1) * parallelDegreeLength(lat0)
 	return math.Sqrt(dLatMeters*dLatMeters + dLngMeters*dLngMeters)
@@ -33,6 +36,10 @@ func distance(lat0, lng0, lat1, lng1 float64) float64 {
 type Rectangle struct {
 	iLat int32
 	iLng int32
+}
+
+func (rect *Rectangle) ToString() string {
+	return strconv.Itoa(int(rect.iLat)) + "." + strconv.Itoa(int(rect.iLng))
 }
 
 func getRectangleByLatLng(lat float64, lng float64, res int32) Rectangle {
@@ -60,4 +67,50 @@ func getNearbyRectangles(lat float64, lng float64, res int32, accuracyMeters flo
 	}
 
 	return slice
+}
+
+func ReverseGeocode(lat float64, lng float64, accuracyMeters float64, limit int) {
+	rectangles := getNearbyRectangles(lat, lng, GeoIndexResolution, accuracyMeters)
+	addressIDs := make([]uint32, 0)
+	for _, rect := range rectangles {
+		key := rect.ToString()
+		addressIDsInRectangle, ok := GeoIndexData[key]
+		if !ok {
+			continue
+		}
+		addressIDs = append(addressIDs, addressIDsInRectangle...)
+	}
+
+	type addressWithDistance struct {
+		address  *FullAddress
+		distance float64
+	}
+
+	addresses := make([]*addressWithDistance, 0)
+	for _, id := range addressIDs {
+		addr, ok := Addresses[id]
+		if !ok {
+			continue
+		}
+		distance := getDistance(lat, lng, addr.Lat, addr.Lng)
+		if distance <= accuracyMeters {
+			fullAddress := resolveAddress(&addr)
+			if fullAddress.street1562 != nil {
+				addresses = append(addresses, &addressWithDistance{
+					fullAddress,
+					distance,
+				})
+			}
+		}
+	}
+	sort.Slice(addresses, func(i, j int) bool {
+		return addresses[i].distance < addresses[j].distance
+	})
+	safeLimit := limit
+	if len(addresses) < limit {
+		safeLimit = len(addresses)
+	}
+	addresses = addresses[:safeLimit]
+	fmt.Println(addresses)
+	// return addresses
 }
