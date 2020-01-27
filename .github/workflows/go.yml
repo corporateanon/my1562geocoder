@@ -19,7 +19,7 @@ jobs:
     - name: Check out my1562normalizer
       uses: actions/checkout@v1
       with:
-        repository: https://github.com/corporateanon/my1562normalizer
+        repository: corporateanon/my1562normalizer
         path: ./data
           
     # - name: Get dependencies
