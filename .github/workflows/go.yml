@@ -32,7 +32,8 @@ jobs:
     #     fi
 
     - name: Build data file
-      run: go run ./data
+      run: go run .
+      working-directory: ./data/gobify
 
     - name: Test
       run: go test .
