@@ -14,10 +14,10 @@ jobs:
       id: go
 
     - name: Check out code into the Go module directory
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     - name: Check out my1562normalizer
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
       with:
         repository: corporateanon/my1562normalizer
         path: data
