@@ -1,105 +1,42 @@
 package my1562geocoder
 
 import (
+	"github.com/bradleyjkemp/cupaloy"
+	"gotest.tools/assert"
 	"math"
-	"reflect"
+	"math/rand"
 	"testing"
 )
 
-func TestGetAddressById(t *testing.T) {
-	type args struct {
-		id uint32
-	}
-	tests := []struct {
-		name string
-		args args
-		want *Address
-	}{
-		{
-			"Existing address",
-			args{181901},
-			&Address{
-				ID:           181901,
-				Lat:          49.9604596373,
-				Lng:          36.3265315275,
-				Number:       4,
-				Suffix:       "",
-				Block:        "",
-				StreetID:     4453,
-				Detail:       "",
-				DetailNumber: 0,
-				Postcode:     61082,
-			},
-		},
-		{
-			"Non-existing address",
-			args{666666},
-			nil,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := GetAddressByID(tt.args.id); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetAddressById() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
+func TestNewGeocoder(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
 
-func Test_getRectangleByLatLng(t *testing.T) {
-	type args struct {
-		lat float64
-		lng float64
-		res int32
-	}
-	tests := []struct {
-		name string
-		args args
-		want Rectangle
-	}{
-		{
-			"Resolve coordinates to indexing rectangle",
-			args{49.944204004899994, 36.3421038691, 200},
-			Rectangle{27988, 43268},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := getRectangleByLatLng(tt.args.lat, tt.args.lng, tt.args.res); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("getRectangleByLatLng() = %v, want %v", got, tt.want)
-			}
+	assert.DeepEqual(t, geo.data.Addresses[100000],
+		&Address{
+			ID:       100000,
+			Lat:      49.963557842,
+			Lng:      36.352988433,
+			Number:   3,
+			StreetID: 2009,
+			Postcode: 61099,
 		})
-	}
-}
 
-func Test_getNearbyRectangles(t *testing.T) {
-	type args struct {
-		lat            float64
-		lng            float64
-		res            int32
-		accuracyMeters float64
+	if len(geo.data.Addresses) < 77034 {
+		t.Errorf("len(Addresses) is too small %d", len(geo.data.Addresses))
 	}
-	tests := []struct {
-		name string
-		args args
-		want []Rectangle
-	}{
-		{
-			"Get slice of nearby rectangles for a point",
-			args{49.944204004899994, 36.3421038691, 200, 100},
-			[]Rectangle{
-				{27988, 43268},
-				{27989, 43268},
-			},
-		},
+	if len(geo.data.StreetsAR) < 3720 {
+		t.Errorf("len(StreetsAR) is too small %d", len(geo.data.StreetsAR))
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := getNearbyRectangles(tt.args.lat, tt.args.lng, tt.args.res, tt.args.accuracyMeters); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("getNearbyRectangles() = %v, want %v", got, tt.want)
-			}
-		})
+	if len(geo.data.Streets1562) < 2840 {
+		t.Errorf("len(Streets1562) is too small %d", len(geo.data.Streets1562))
 	}
+	if len(geo.data.MappingArTo1562) < 2662 {
+		t.Errorf("len(MappingArTo1562) is too small %d", len(geo.data.MappingArTo1562))
+	}
+	if len(geo.data.Mapping1562ToAr) < 2689 {
+		t.Errorf("len(Mapping1562ToAr) is too small %d", len(geo.data.Mapping1562ToAr))
+	}
+
 }
 
 func Test_getDistance(t *testing.T) {
@@ -132,27 +69,48 @@ func Test_getDistance(t *testing.T) {
 	}
 }
 
-func TestReverseGeocode(t *testing.T) {
-	type args struct {
-		lat            float64
-		lng            float64
-		accuracyMeters float64
-		limit          int
+func TestGeocoder_buildSpatialIndex(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.buildSpatialIndex(100)
+	if len(geo.index.Items) < 400 {
+		t.Errorf("len(index.Items) is too small %d", len(geo.index.Items))
 	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{
-			"Converts coordinates to addresses",
-			args{
-				49.977094, 36.219115, 100, 4, //Моечная 11/5
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			ReverseGeocode(tt.args.lat, tt.args.lng, tt.args.accuracyMeters, tt.args.limit)
-		})
+}
+
+func Test_getNearbyRectangles(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.buildSpatialIndex(200)
+	rects := geo.getNearbyRectangles(49.944204004899994, 36.3421038691, 100)
+
+	assert.DeepEqual(t, rects, []Rectangle{
+		{27988, 43268},
+		{27989, 43268},
+	})
+}
+
+func TestReverseGeocode0(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.buildSpatialIndex(200)
+
+	cupaloy.SnapshotT(t, geo.ReverseGeocode(49.977094, 36.219115, 300, 4))
+}
+func TestReverseGeocode1(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.buildSpatialIndex(200)
+
+	cupaloy.SnapshotT(t, geo.ReverseGeocode(50.018105, 36.331791, 300, 10))
+}
+
+func BenchmarkReverseGeocode(b *testing.B) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.buildSpatialIndex(200)
+	var latMin float64 = 49.929461
+	var latMax float64 = 50.035745
+	var lngMin float64 = 36.281144
+	var lngMax float64 = 36.371397
+	for i := 0; i < b.N; i++ {
+		lat := rand.Float64()*(latMax-latMin) + latMin
+		lng := rand.Float64()*(lngMax-lngMin) + lngMin
+		geo.ReverseGeocode(lat, lng, 300, 10)
 	}
 }

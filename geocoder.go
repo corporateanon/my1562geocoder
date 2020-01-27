@@ -1,66 +1,66 @@
 package my1562geocoder
 
 import (
-	"fmt"
-	"math"
+	"encoding/gob"
+	"os"
 	"sort"
-	"strconv"
 )
 
-func GetAddressByID(id uint32) *Address {
-	addr, ok := Addresses[id]
-	if ok {
-		return &addr
+type Geocoder struct {
+	data  *GeocoderData
+	index *GeoIndexWithResolution
+}
+
+func NewGeocoder(gobFile string) *Geocoder {
+	file, err := os.Open(gobFile)
+	if err != nil {
+		panic(err)
 	}
-	return nil
+	defer file.Close()
+
+	gob.RegisterName("*GeocoderData", &GeocoderData{})
+	dec := gob.NewDecoder(file)
+
+	data := GeocoderData{}
+	err = dec.Decode(&data)
+	if err != nil {
+		panic(err)
+	}
+
+	return &Geocoder{
+		data: &data,
+	}
 }
 
-const meridianDegreeLength = 111000.0
-
-func parallelDegreeLength(lat float64) float64 {
-	return math.Cos(lat*math.Pi/180.0) * meridianDegreeLength
+func (geo *Geocoder) buildSpatialIndex(resolution float64) {
+	index := &GeoIndexWithResolution{Resolution: resolution, Items: GeoIndex{}}
+	for _, address := range geo.data.Addresses {
+		rect := NewRectangle(address.Lat, address.Lng, resolution)
+		key := rect.ToString()
+		if index.Items[key] == nil {
+			index.Items[key] = []uint32{}
+		}
+		index.Items[key] = append(index.Items[key], address.ID)
+	}
+	geo.index = index
 }
 
-func transpose(lat float64, lng float64, dLatMeters float64, dLngMeters float64) (float64, float64) {
-	dLatDegrees := dLatMeters / meridianDegreeLength
-	dLngDegrees := dLngMeters / parallelDegreeLength(lat)
-	return lat + dLatDegrees, lng + dLngDegrees
-}
-
-func getDistance(lat0, lng0, lat1, lng1 float64) float64 {
-	dLatMeters := (lat0 - lat1) * meridianDegreeLength
-	dLngMeters := (lng0 - lng1) * parallelDegreeLength(lat0)
-	return math.Sqrt(dLatMeters*dLatMeters + dLngMeters*dLngMeters)
-}
-
-type Rectangle struct {
-	iLat int32
-	iLng int32
-}
-
-func (rect *Rectangle) ToString() string {
-	return strconv.Itoa(int(rect.iLat)) + "." + strconv.Itoa(int(rect.iLng))
-}
-
-func getRectangleByLatLng(lat float64, lng float64, res int32) Rectangle {
-	var iLat, iLng int32
-	iLat = int32((lat + 90.0) * GeoIndexResolution)
-	iLng = int32((lng + 180.0) * GeoIndexResolution)
-	return Rectangle{iLat, iLng}
-}
-
-func getNearbyRectangles(lat float64, lng float64, res int32, accuracyMeters float64) []Rectangle {
+func (geo *Geocoder) getNearbyRectangles(
+	lat float64,
+	lng float64,
+	accuracyMeters float64,
+) []Rectangle {
 	minLat, minLng := transpose(lat, lng, -accuracyMeters, -accuracyMeters)
 	maxLat, maxLng := transpose(lat, lng, accuracyMeters, accuracyMeters)
 
-	minRect := getRectangleByLatLng(minLat, minLng, res)
-	maxRect := getRectangleByLatLng(maxLat, maxLng, res)
+	minRect := NewRectangle(minLat, minLng, geo.index.Resolution)
+	maxRect := NewRectangle(maxLat, maxLng, geo.index.Resolution)
 
-	length := (maxRect.iLat - minRect.iLat + 1) * (maxRect.iLng - minRect.iLng + 1)
+	length := (maxRect.ILat - minRect.ILat + 1) * (maxRect.ILng - minRect.ILng + 1)
 	slice := make([]Rectangle, length)
 	index := 0
-	for iLat := minRect.iLat; iLat <= maxRect.iLat; iLat++ {
-		for iLng := minRect.iLng; iLng <= maxRect.iLng; iLng++ {
+	for iLat := minRect.ILat; iLat <= maxRect.ILat; iLat++ {
+		for iLng := minRect.ILng; iLng <= maxRect.ILng; iLng++ {
 			slice[index] = Rectangle{iLat, iLng}
 			index++
 		}
@@ -69,48 +69,67 @@ func getNearbyRectangles(lat float64, lng float64, res int32, accuracyMeters flo
 	return slice
 }
 
-func ReverseGeocode(lat float64, lng float64, accuracyMeters float64, limit int) {
-	rectangles := getNearbyRectangles(lat, lng, GeoIndexResolution, accuracyMeters)
+func (geo *Geocoder) resolveAddress(address *Address) *FullAddress {
+	fa := &FullAddress{}
+	fa.Address = address
+	streetID := address.StreetID
+
+	streetAR, streetARisResolved := geo.data.StreetsAR[streetID]
+	if streetARisResolved {
+		fa.StreetAR = streetAR
+	}
+
+	street1562Id, street1562IdIsResolved := geo.data.MappingArTo1562[streetID]
+	if street1562IdIsResolved {
+		street1562, street1562IsResolved := geo.data.Streets1562[street1562Id]
+		if street1562IsResolved {
+			fa.Street1562 = street1562
+		}
+	}
+	return fa
+}
+
+func (geo *Geocoder) ReverseGeocode(
+	lat float64,
+	lng float64,
+	accuracyMeters float64,
+	limit int,
+) []*ReverseGeocodingResult {
+	rectangles := geo.getNearbyRectangles(lat, lng, accuracyMeters)
 	addressIDs := make([]uint32, 0)
 	for _, rect := range rectangles {
 		key := rect.ToString()
-		addressIDsInRectangle, ok := GeoIndexData[key]
+		addressIDsInRectangle, ok := geo.index.Items[key]
 		if !ok {
 			continue
 		}
 		addressIDs = append(addressIDs, addressIDsInRectangle...)
 	}
 
-	type addressWithDistance struct {
-		address  *FullAddress
-		distance float64
-	}
-
-	addresses := make([]*addressWithDistance, 0)
+	results := make([]*ReverseGeocodingResult, 0)
 	for _, id := range addressIDs {
-		addr, ok := Addresses[id]
+		addr, ok := geo.data.Addresses[id]
 		if !ok {
 			continue
 		}
 		distance := getDistance(lat, lng, addr.Lat, addr.Lng)
 		if distance <= accuracyMeters {
-			fullAddress := resolveAddress(&addr)
-			if fullAddress.street1562 != nil {
-				addresses = append(addresses, &addressWithDistance{
+			fullAddress := geo.resolveAddress(addr)
+			if fullAddress.Street1562 != nil {
+				results = append(results, &ReverseGeocodingResult{
 					fullAddress,
 					distance,
 				})
 			}
 		}
 	}
-	sort.Slice(addresses, func(i, j int) bool {
-		return addresses[i].distance < addresses[j].distance
+	sort.Slice(results, func(i, j int) bool {
+		return results[i].Distance < results[j].Distance
 	})
 	safeLimit := limit
-	if len(addresses) < limit {
-		safeLimit = len(addresses)
+	if len(results) < limit {
+		safeLimit = len(results)
 	}
-	addresses = addresses[:safeLimit]
-	fmt.Println(addresses)
-	// return addresses
+	results = results[:safeLimit]
+	return results
 }
