@@ -21,6 +21,7 @@ jobs:
       with:
         repository: corporateanon/my1562normalizer
         path: ./data
+        ref: master
           
     # - name: Get dependencies
     #   run: |
