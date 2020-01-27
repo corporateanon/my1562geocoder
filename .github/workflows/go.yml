@@ -27,4 +27,4 @@ jobs:
       working-directory: ./data/gobify
 
     - name: Test
-      run: go test .
+      run: go test . -benchmem -bench .
