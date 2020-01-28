@@ -71,7 +71,7 @@ func Test_getDistance(t *testing.T) {
 
 func TestGeocoder_buildSpatialIndex(t *testing.T) {
 	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
-	geo.buildSpatialIndex(100)
+	geo.BuildSpatialIndex(100)
 	if len(geo.index.Items) < 400 {
 		t.Errorf("len(index.Items) is too small %d", len(geo.index.Items))
 	}
@@ -79,7 +79,7 @@ func TestGeocoder_buildSpatialIndex(t *testing.T) {
 
 func Test_getNearbyRectangles(t *testing.T) {
 	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
-	geo.buildSpatialIndex(200)
+	geo.BuildSpatialIndex(200)
 	rects := geo.getNearbyRectangles(49.944204004899994, 36.3421038691, 100)
 
 	assert.DeepEqual(t, rects, []Rectangle{
@@ -90,20 +90,20 @@ func Test_getNearbyRectangles(t *testing.T) {
 
 func TestReverseGeocode0(t *testing.T) {
 	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
-	geo.buildSpatialIndex(200)
+	geo.BuildSpatialIndex(200)
 
 	cupaloy.SnapshotT(t, geo.ReverseGeocode(49.977094, 36.219115, 300, 4))
 }
 func TestReverseGeocode1(t *testing.T) {
 	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
-	geo.buildSpatialIndex(200)
+	geo.BuildSpatialIndex(200)
 
 	cupaloy.SnapshotT(t, geo.ReverseGeocode(50.018105, 36.331791, 300, 10))
 }
 
 func BenchmarkReverseGeocode(b *testing.B) {
 	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
-	geo.buildSpatialIndex(200)
+	geo.BuildSpatialIndex(200)
 	var latMin float64 = 49.929461
 	var latMax float64 = 50.035745
 	var lngMin float64 = 36.281144

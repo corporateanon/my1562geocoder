@@ -32,7 +32,7 @@ func NewGeocoder(gobFile string) *Geocoder {
 	}
 }
 
-func (geo *Geocoder) buildSpatialIndex(resolution float64) {
+func (geo *Geocoder) BuildSpatialIndex(resolution float64) {
 	index := &GeoIndexWithResolution{Resolution: resolution, Items: GeoIndex{}}
 	for _, address := range geo.data.Addresses {
 		rect := NewRectangle(address.Lat, address.Lng, resolution)
