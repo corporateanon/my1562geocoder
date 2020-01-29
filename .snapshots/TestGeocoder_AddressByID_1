@@ -1,0 +1,25 @@
+(*my1562geocoder.FullAddress)({
+  Address: (*my1562geocoder.Address)({
+    ID: (uint32) 152699,
+    Lat: (float64) 49.9770978461,
+    Lng: (float64) 36.2191346721,
+    Number: (uint16) 11,
+    Suffix: (string) "",
+    Block: (string) "",
+    StreetID: (uint32) 3255,
+    Detail: (string) "",
+    DetailNumber: (uint32) 0,
+    Postcode: (uint32) 61004
+  }),
+  Street1562: (*my1562geocoder.Street1562)({
+    ID: (uint32) 1406,
+    Name: (string) (len=20) "вул. Моєчна"
+  }),
+  StreetAR: (*my1562geocoder.StreetAR)({
+    ID: (uint32) 3255,
+    NameUk: (string) (len=12) "Моєчна",
+    NameRu: (string) (len=14) "Моечная",
+    TypeUk: (string) (len=12) "вулиця",
+    TypeRu: (string) (len=10) "улица"
+  })
+})

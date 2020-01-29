@@ -133,3 +133,11 @@ func (geo *Geocoder) ReverseGeocode(
 	results = results[:safeLimit]
 	return results
 }
+
+func (geo *Geocoder) AddressByID(ID uint32) *FullAddress {
+	addr := geo.data.Addresses[ID]
+	if addr == nil {
+		return nil
+	}
+	return geo.resolveAddress(addr)
+}

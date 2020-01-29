@@ -1,11 +1,12 @@
 package my1562geocoder
 
 import (
-	"github.com/bradleyjkemp/cupaloy"
-	"gotest.tools/assert"
 	"math"
 	"math/rand"
 	"testing"
+
+	"github.com/bradleyjkemp/cupaloy"
+	"gotest.tools/assert"
 )
 
 func TestNewGeocoder(t *testing.T) {
@@ -113,4 +114,22 @@ func BenchmarkReverseGeocode(b *testing.B) {
 		lng := rand.Float64()*(lngMax-lngMin) + lngMin
 		geo.ReverseGeocode(lat, lng, 300, 10)
 	}
+}
+
+func TestGeocoder_AddressByID_1(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.BuildSpatialIndex(200)
+	cupaloy.SnapshotT(t, geo.AddressByID(152699))
+}
+
+func TestGeocoder_AddressByID_2(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.BuildSpatialIndex(200)
+	cupaloy.SnapshotT(t, geo.AddressByID(150690))
+}
+
+func TestGeocoder_AddressByID_nil(t *testing.T) {
+	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo.BuildSpatialIndex(200)
+	cupaloy.SnapshotT(t, geo.AddressByID(180180180))
 }
