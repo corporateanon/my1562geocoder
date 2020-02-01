@@ -6,17 +6,23 @@ type GeoIndexWithResolution struct {
 	Items      GeoIndex `json:"index"`
 }
 
+// Address represents an address from Kharkiv Architectural Registry database
 type Address struct {
-	ID           uint32  `json:"id,omitempty"`
-	Lat          float64 `json:"lat,omitempty"`
-	Lng          float64 `json:"lng,omitempty"`
-	Number       uint16  `json:"number,omitempty"`
-	Suffix       string  `json:"suffix,omitempty"`
-	Block        string  `json:"block,omitempty"`
-	StreetID     uint32  `json:"streetID,omitempty"`
-	Detail       string  `json:"detail,omitempty"`
-	DetailNumber uint32  `json:"detailNumber,omitempty"` //TODO check
-	Postcode     uint32  `json:"postcode,omitempty"`
+	ID     uint32  `json:"id,omitempty"`
+	Lat    float64 `json:"lat,omitempty"`
+	Lng    float64 `json:"lng,omitempty"`
+	Number uint16  `json:"number,omitempty"`
+	// Suffix - a letter after the building number. Example - "Г"
+	// Suffix can also mean a secondary building number. Example - "/26"
+	Suffix string `json:"suffix,omitempty"`
+	// Block - block (корпус)
+	Block    string `json:"block,omitempty"`
+	StreetID uint32 `json:"streetID,omitempty"`
+	// Detail - example "ділянка №"
+	Detail string `json:"detail,omitempty"`
+	// DetailNumber - example "5" (works together with detail)
+	DetailNumber string `json:"detailNumber,omitempty"`
+	Postcode     uint32 `json:"postcode,omitempty"`
 }
 
 type AddressMap map[uint32]*Address
