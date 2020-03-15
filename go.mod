@@ -1,4 +1,4 @@
-module github.com/corporateanon/my1562geocoder
+module github.com/my1562/geocoder
 
 go 1.13
 
