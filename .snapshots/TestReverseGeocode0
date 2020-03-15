@@ -10,7 +10,7 @@
         Block: (string) "",
         StreetID: (uint32) 3255,
         Detail: (string) "",
-        DetailNumber: (uint32) 0,
+        DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
       Street1562: (*my1562geocoder.Street1562)({
@@ -38,7 +38,7 @@
         Block: (string) "",
         StreetID: (uint32) 2919,
         Detail: (string) "",
-        DetailNumber: (uint32) 0,
+        DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
       Street1562: (*my1562geocoder.Street1562)({
@@ -66,7 +66,7 @@
         Block: (string) "",
         StreetID: (uint32) 2919,
         Detail: (string) "",
-        DetailNumber: (uint32) 0,
+        DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
       Street1562: (*my1562geocoder.Street1562)({
@@ -94,7 +94,7 @@
         Block: (string) "",
         StreetID: (uint32) 3255,
         Detail: (string) "",
-        DetailNumber: (uint32) 0,
+        DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
       Street1562: (*my1562geocoder.Street1562)({
