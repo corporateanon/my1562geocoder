@@ -1,4 +1,4 @@
-package my1562geocoder
+package geocoder
 
 import "math"
 

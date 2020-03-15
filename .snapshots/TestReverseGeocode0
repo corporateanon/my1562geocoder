@@ -1,7 +1,7 @@
-([]*my1562geocoder.ReverseGeocodingResult) (len=4) {
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+([]*geocoder.ReverseGeocodingResult) (len=4) {
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 152699,
         Lat: (float64) 49.9770978461,
         Lng: (float64) 36.2191346721,
@@ -13,11 +13,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 1406,
         Name: (string) (len=20) "вул. Моєчна"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 3255,
         NameUk: (string) (len=12) "Моєчна",
         NameRu: (string) (len=14) "Моечная",
@@ -27,9 +27,9 @@
     }),
     Distance: (float64) 1.467722372881249
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 150690,
         Lat: (float64) 49.976941106299996,
         Lng: (float64) 36.2191754237,
@@ -41,11 +41,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 971,
         Name: (string) (len=26) "вул. Колодязна"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2919,
         NameUk: (string) (len=18) "Колодязна",
         NameRu: (string) (len=20) "Колодезная",
@@ -55,9 +55,9 @@
     }),
     Distance: (float64) 17.510733229414672
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 150691,
         Lat: (float64) 49.9768880208,
         Lng: (float64) 36.2192795598,
@@ -69,11 +69,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 971,
         Name: (string) (len=26) "вул. Колодязна"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2919,
         NameUk: (string) (len=18) "Колодязна",
         NameRu: (string) (len=20) "Колодезная",
@@ -83,9 +83,9 @@
     }),
     Distance: (float64) 25.70479779131659
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 152700,
         Lat: (float64) 49.9773324726,
         Lng: (float64) 36.2190097278,
@@ -97,11 +97,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61004
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 1406,
         Name: (string) (len=20) "вул. Моєчна"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 3255,
         NameUk: (string) (len=12) "Моєчна",
         NameRu: (string) (len=14) "Моечная",

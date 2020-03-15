@@ -1,7 +1,7 @@
-([]*my1562geocoder.ReverseGeocodingResult) (len=10) {
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+([]*geocoder.ReverseGeocodingResult) (len=10) {
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 177223,
         Lat: (float64) 50.0175747478,
         Lng: (float64) 36.331815516999995,
@@ -13,11 +13,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",
@@ -27,9 +27,9 @@
     }),
     Distance: (float64) 58.88396331517277
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 131654,
         Lat: (float64) 50.0180494571,
         Lng: (float64) 36.3329766728,
@@ -41,11 +41,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",
@@ -55,9 +55,9 @@
     }),
     Distance: (float64) 84.78965262010306
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 131658,
         Lat: (float64) 50.0172835036,
         Lng: (float64) 36.332260685899996,
@@ -69,11 +69,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",
@@ -83,9 +83,9 @@
     }),
     Distance: (float64) 97.14474308224821
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 131978,
         Lat: (float64) 50.017168226399995,
         Lng: (float64) 36.3308609952,
@@ -97,11 +97,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 228,
         Name: (string) (len=53) "вул. Валентинівська (Блюхера)"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2206,
         NameUk: (string) (len=28) "Валентинівська",
         NameRu: (string) (len=28) "Валентиновская",
@@ -111,9 +111,9 @@
     }),
     Distance: (float64) 123.33669361289704
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 120096,
         Lat: (float64) 50.018640093799995,
         Lng: (float64) 36.330160492,
@@ -125,11 +125,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61168
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",
@@ -139,9 +139,9 @@
     }),
     Distance: (float64) 130.58193699235738
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 131653,
         Lat: (float64) 50.0192174951,
         Lng: (float64) 36.3327083963,
@@ -153,11 +153,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",
@@ -167,9 +167,9 @@
     }),
     Distance: (float64) 139.75067091469666
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 131985,
         Lat: (float64) 50.0168920582,
         Lng: (float64) 36.3323480932,
@@ -181,11 +181,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 228,
         Name: (string) (len=53) "вул. Валентинівська (Блюхера)"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2206,
         NameUk: (string) (len=28) "Валентинівська",
         NameRu: (string) (len=28) "Валентиновская",
@@ -195,9 +195,9 @@
     }),
     Distance: (float64) 140.3771123542027
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 120093,
         Lat: (float64) 50.0184806448,
         Lng: (float64) 36.329684992,
@@ -209,11 +209,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61168
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",
@@ -223,9 +223,9 @@
     }),
     Distance: (float64) 155.88587527729817
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 131991,
         Lat: (float64) 50.0177388866,
         Lng: (float64) 36.3339115151,
@@ -237,11 +237,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61146
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 228,
         Name: (string) (len=53) "вул. Валентинівська (Блюхера)"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2206,
         NameUk: (string) (len=28) "Валентинівська",
         NameRu: (string) (len=28) "Валентиновская",
@@ -251,9 +251,9 @@
     }),
     Distance: (float64) 156.6052307937159
   }),
-  (*my1562geocoder.ReverseGeocodingResult)({
-    FullAddress: (*my1562geocoder.FullAddress)({
-      Address: (*my1562geocoder.Address)({
+  (*geocoder.ReverseGeocodingResult)({
+    FullAddress: (*geocoder.FullAddress)({
+      Address: (*geocoder.Address)({
         ID: (uint32) 120066,
         Lat: (float64) 50.0171097115,
         Lng: (float64) 36.3302050704,
@@ -265,11 +265,11 @@
         DetailNumber: (string) "",
         Postcode: (uint32) 61170
       }),
-      Street1562: (*my1562geocoder.Street1562)({
+      Street1562: (*geocoder.Street1562)({
         ID: (uint32) 43,
         Name: (string) (len=41) "вул. Академіка Павлова"
       }),
-      StreetAR: (*my1562geocoder.StreetAR)({
+      StreetAR: (*geocoder.StreetAR)({
         ID: (uint32) 2045,
         NameUk: (string) (len=33) "Академіка Павлова",
         NameRu: (string) (len=33) "Академика Павлова",

@@ -1,4 +1,4 @@
-package my1562geocoder
+package geocoder
 
 type GeoIndex map[string][]uint32
 type GeoIndexWithResolution struct {
