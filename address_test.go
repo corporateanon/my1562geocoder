@@ -7,7 +7,7 @@ import (
 )
 
 func TestAddress_GetBuildingAsString(t *testing.T) {
-	geo := NewGeocoder("./data/gobs/geocoder-data.gob")
+	geo := NewGeocoder()
 
 	buildings := []string{
 		geo.AddressByID(100003).Address.GetBuildingAsString(),

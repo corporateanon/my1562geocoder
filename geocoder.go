@@ -2,8 +2,9 @@ package geocoder
 
 import (
 	"encoding/gob"
-	"os"
 	"sort"
+
+	"github.com/markbates/pkger"
 )
 
 type Geocoder struct {
@@ -11,8 +12,10 @@ type Geocoder struct {
 	index *GeoIndexWithResolution
 }
 
-func NewGeocoder(gobFile string) *Geocoder {
-	file, err := os.Open(gobFile)
+func NewGeocoder() *Geocoder {
+
+	file, err := pkger.Open("/data/geocoder-data.gob")
+
 	if err != nil {
 		panic(err)
 	}
